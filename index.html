@@ -15,13 +15,16 @@
       <form id="form">
         <h2>please enter a new book!</h2>
         <label for="title">Title:</label>
-        <input type="text" name="title" id="title" />
+        <input type="text" name="title" id="title" required />
         <label for="author">Author:</label>
-        <input type="text" name="author" id="author" />
+        <input type="text" name="author" id="author" required />
         <label for="pages">Number of pages:</label>
-        <input type="text" name="pages" id="pages" />
-        <label for="title">Have you read yet?</label>
-        <input type="text" name="read" id="read" />
+        <input type="text" name="pages" id="pages" required />
+        <p>Have you read this book yet?</p>
+        <input type="radio" name="read" id="not-read" value="not read yet" />
+        <label for="not-read">not read yet</label>
+        <input type="radio" name="read" id="have-read" value="I have read" />
+        <label for="have-read">I have read</label>
         <button type="submit" class="submit-btn">Submit</button>
       </form>
     </div>

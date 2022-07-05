@@ -27,6 +27,9 @@ function generateBookHTML(book) {
   bookDiv.classList.add("book-div");
   bookRemove.classList.add("book-remove");
   toggleRead.classList.add("toggle-read");
+  bookRemove.type = "button";
+  toggleRead.type = "button";
+  bookRemove.setAttribute("data-id", myLibrary.length - 1);
 
   let bookContent = document.createTextNode(`${book.title}`);
   let authContent = document.createTextNode(`${book.author}`);
@@ -34,6 +37,20 @@ function generateBookHTML(book) {
   let readContent = document.createTextNode(`${book.read}`);
   let bookRemoveText = document.createTextNode("Remove Book");
   let toggleReadText = document.createTextNode("Read-status");
+
+  bookRemove.addEventListener("click", function (e) {
+    let id = e.currentTarget.dataset.id;
+    myLibrary.splice(id, id + 1);
+    bookDiv.remove();
+  });
+
+  toggleRead.addEventListener("click", function () {
+    if (bookRead.textContent === "not read yet") {
+      bookRead.textContent = "I have read";
+    } else {
+      bookRead.textContent = "not read yet";
+    }
+  });
 
   bookTitle.append(bookContent);
   bookAuthor.append(authContent);
@@ -71,16 +88,15 @@ const form = document.getElementById("form");
 const title = document.getElementById("title");
 const author = document.getElementById("author");
 const pages = document.getElementById("pages");
-const read = document.getElementById("read");
 
 form.addEventListener("submit", function (e) {
   e.preventDefault();
-  let newBook = new Book(title.value, author.value, pages.value, read.value);
+  let readValue = document.querySelector('input[name="read"]:checked').value;
+  let newBook = new Book(title.value, author.value, pages.value, readValue);
   addBookToLibrary(newBook);
   generateBookHTML(newBook);
   title.value = "";
   author.value = "";
   pages.value = "";
-  read.value = "";
   document.querySelector(".book-form-div").style.display = "none";
 });
